@@ -1,0 +1,31 @@
+Project Architecture Overview
+
+1. Source Code Management (Git)
+    - Developers push code to a remote Git repository (e.g., GitHub, GitLab, Bitbucket).
+    - Branching strategies (feature, develop, main) are used for code organization.
+
+2. Continuous Integration (Jenkins)
+    - Jenkins is configured to monitor the Git repository for code changes.
+    - On code push, Jenkins triggers automated build and test pipelines.
+    - Jenkins can run unit tests, static code analysis, and build artifacts (e.g., Docker images).
+
+3. Containerization (Docker)
+    - Application code is packaged into Docker containers as part of the Jenkins pipeline.
+    - Docker images are tagged and pushed to a container registry (e.g., Docker Hub, ECR).
+
+4. Continuous Deployment (Kubernetes)
+    - Kubernetes is used to orchestrate and manage containerized applications.
+    - Jenkins deploys the latest Docker images to the Kubernetes cluster using deployment manifests (YAML files).
+    - Kubernetes handles scaling, load balancing, and self-healing of application pods.
+
+5. Monitoring & Logging
+    - Tools like Prometheus (monitoring) and ELK/EFK stack (logging) can be integrated with Kubernetes for observability.
+
+Workflow Summary:
+Developer → Git → Jenkins (CI/CD) → Docker Registry → Kubernetes Cluster
+
+Key Components:
+- Git: Source code version control
+- Jenkins: CI/CD automation
+- Docker: Containerization
+- Kubernetes: Container orchestration
