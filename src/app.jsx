@@ -361,11 +361,15 @@ export default function App() {
             </div>
             <div className="about-text">
               <p>
-                🌱 Started by passionate tea lovers in the lush valleys of Assam,
-                Everleaf was born out of a simple belief — that every cup of tea
-                should tell a story. We carefully curate small-batch teas sourced
-                from trusted gardens, where tradition and nature come together in
-                harmony.
+                 Started by passionate tea lovers in the lush valleys of Assam, Everleaf was born out of a simple belief
+ — that every cup of tea should tell a story. We carefully curate small-batch teas sourced from trusted gardens, 
+ where tradition and nature come together in harmony. Each leaf is chosen not only for its flavour and freshness,
+ but also for its provenance, ensuring you taste the essence of the land with every sip.
+
+Whether you crave the bold depth of black tea, the gentle calm of green tea, or the nuanced character of rare blends, 
+Everleaf has something crafted just for you.
+Our mission is to celebrate tea as more than a beverage — it’s a ritual of comfort, connection, and care. 
+From the first pour to the last sip, we invite you to discover a cup that speaks to your soul.
               </p>
             </div>
           </div>
