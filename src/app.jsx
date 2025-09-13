@@ -1,5 +1,6 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState } from "react"; // Import React and hooks
 
+// Product data array
 const products = [
   {
     id: 1,
@@ -45,40 +46,47 @@ const products = [
   },
 ];
 
+// Main App component
 export default function App() {
-  const sliderRef = useRef(null);
-  const [cart, setCart] = useState([]);
-  const [showCart, setShowCart] = useState(false);
+  const sliderRef = useRef(null); // Ref for product slider
+  const [cart, setCart] = useState([]); // State for cart items
+  const [showCart, setShowCart] = useState(false); // State for cart dropdown visibility
 
+  // Scroll slider left or right
   const scroll = (direction) => {
     if (sliderRef.current) {
-      const width = sliderRef.current.offsetWidth;
+      const width = sliderRef.current.offsetWidth; // Get slider width
       sliderRef.current.scrollBy({
-        left: direction === "left" ? -width : width,
-        behavior: "smooth",
+        left: direction === "left" ? -width : width, // Scroll left or right
+        behavior: "smooth", // Smooth scroll
       });
     }
   };
 
+  // Add product to cart
   const addToCart = (product) => {
     setCart((prev) => {
-      const existing = prev.find((item) => item.id === product.id);
+      const existing = prev.find((item) => item.id === product.id); // Check if product exists
       if (existing) {
+        // If exists, increment qty
         return prev.map((item) =>
           item.id === product.id ? { ...item, qty: item.qty + 1 } : item
         );
       }
+      // Else, add new product with qty 1
       return [...prev, { ...product, qty: 1 }];
     });
   };
 
+  // Remove product from cart by id
   const removeFromCart = (id) => {
     setCart((prev) => prev.filter((item) => item.id !== id));
   };
 
+  // Inject styles on mount
   React.useEffect(() => {
-    if (document.getElementById("everleaf-styles")) return;
-    const style = document.createElement("style");
+    if (document.getElementById("everleaf-styles")) return; // Prevent duplicate styles
+    const style = document.createElement("style"); // Create style element
     style.id = "everleaf-styles";
     style.innerHTML = `
       :root { --accent:#0B6A3F; --muted:#6b776b; --bg:#fbfdfb }
@@ -278,36 +286,36 @@ export default function App() {
 
       footer{ margin-top:40px; padding:20px; text-align:center; color:var(--muted); background:#f8f8f8; }
     `;
-    document.head.appendChild(style);
+    document.head.appendChild(style); // Append style to document head
   }, []);
 
   return (
     <>
       {/* Navbar */}
       <nav>
-        <img src="/images/logo.png" alt="Everleaf Tea Logo" />
+        <img src="/images/logo.png" alt="Everleaf Tea Logo" /> {/* Logo */}
         <div className="nav-links">
-          <a href="#products">Products</a>
-          <a href="#about">About</a>
-          <a href="#contact">Contact</a>
+          <a href="#products">Products</a> {/* Products link */}
+          <a href="#about">About</a> {/* About link */}
+          <a href="#contact">Contact</a> {/* Contact link */}
           <button className="cart-btn" onClick={() => setShowCart(!showCart)}>
-            🛒
-            {cart.length > 0 && <span className="cart-count">{cart.length}</span>}
+            🛒 {/* Cart icon */}
+            {cart.length > 0 && <span className="cart-count">{cart.length}</span>} {/* Cart count */}
           </button>
           {showCart && (
             <div className="cart-dropdown">
               {cart.length === 0 ? (
-                <p>Your cart is empty</p>
+                <p>Your cart is empty</p> // Show if cart is empty
               ) : (
                 cart.map((item) => (
                   <div key={item.id} className="cart-item">
-                    <img src={item.image} alt={item.name} />
+                    <img src={item.image} alt={item.name} /> {/* Product image */}
                     <div className="cart-item-info">
-                      <strong>{item.name}</strong>
-                      <p>{item.price}</p>
-                      <p>Qty: {item.qty}</p>
+                      <strong>{item.name}</strong> {/* Product name */}
+                      <p>{item.price}</p> {/* Product price */}
+                      <p>Qty: {item.qty}</p> {/* Quantity */}
                     </div>
-                    <button className="remove-btn" onClick={() => removeFromCart(item.id)}>✕</button>
+                    <button className="remove-btn" onClick={() => removeFromCart(item.id)}>✕</button> {/* Remove button */}
                   </div>
                 ))
               )}
@@ -316,10 +324,10 @@ export default function App() {
         </div>
       </nav>
 
-      {/* Hero */}
+      {/* Hero section */}
       <section className="hero">
         <div>
-          <h1>Welcome to Everleaf Tea</h1>
+          <h1>Welcome to Everleaf Tea</h1> {/* Main heading */}
           <p>
             Handpicked leaves, blended with love. Experience teas that bring
             comfort, energy, and joy to your every day.
@@ -328,36 +336,36 @@ export default function App() {
       </section>
 
       <div className="container">
-        {/* Products */}
+        {/* Products section */}
         <section id="products">
           <h2>Our Products</h2>
           <div className="slider-wrapper">
             <button className="arrow left" onClick={() => scroll("left")}>
-              ❮
+              ❮ {/* Left arrow */}
             </button>
             <div className="scroll-container" ref={sliderRef}>
               {products.map((p) => (
                 <div key={p.id} className="card product">
-                  <div className="thumb" style={{ background: `url(${p.image}) center/cover no-repeat` }} />
-                  <h3>{p.name}</h3>
-                  <p>{p.desc}</p>
-                  <p className="price">{p.price}</p>
-                  <button onClick={() => addToCart(p)}>Add to Cart</button>
+                  <div className="thumb" style={{ background: `url(${p.image}) center/cover no-repeat` }} /> {/* Product image */}
+                  <h3>{p.name}</h3> {/* Product name */}
+                  <p>{p.desc}</p> {/* Product description */}
+                  <p className="price">{p.price}</p> {/* Product price */}
+                  <button onClick={() => addToCart(p)}>Add to Cart</button> {/* Add to cart button */}
                 </div>
               ))}
             </div>
             <button className="arrow right" onClick={() => scroll("right")}>
-              ❯
+              ❯ {/* Right arrow */}
             </button>
           </div>
         </section>
 
-        {/* About */}
+        {/* About section */}
         <section id="about" className="about">
           <h2>About Us</h2>
           <div className="about-content">
             <div className="about-image">
-              <img src="/images/about.jpg" alt="About Everleaf Tea" />
+              <img src="/images/about.jpg" alt="About Everleaf Tea" /> {/* About image */}
             </div>
             <div className="about-text">
               <p>
@@ -375,32 +383,32 @@ From the first pour to the last sip, we invite you to discover a cup that speaks
           </div>
         </section>
 
-        {/* Contact */}
+        {/* Contact section */}
         <section id="contact">
           <h2>Contact Us</h2>
           <form
             onSubmit={(e) => {
-              e.preventDefault();
-              alert("Thanks for contacting us! This is a demo form.");
+              e.preventDefault(); // Prevent default form submit
+              alert("Thanks for contacting us! This is a demo form."); // Show alert
             }}
           >
-            <input type="text" placeholder="Your name" required />
-            <input type="email" placeholder="Your email" required />
-            <textarea placeholder="Your message" rows="4"></textarea>
-            <button type="submit">Send</button>
+            <input type="text" placeholder="Your name" required /> {/* Name input */}
+            <input type="email" placeholder="Your email" required /> {/* Email input */}
+            <textarea placeholder="Your message" rows="4"></textarea> {/* Message textarea */}
+            <button type="submit">Send</button> {/* Submit button */}
           </form>
 
           <div style={{ marginTop: "20px", fontSize: "16px", color: "#333" }}>
-            <p><strong>Email:</strong> support@everleaftea.com</p>
-            <p><strong>Phone:</strong> +91 98765 43210</p>
-            <p><strong>Address:</strong> Everleaf Tea Co., Assam, India</p>
+            <p><strong>Email:</strong> support@everleaftea.com</p> {/* Email info */}
+            <p><strong>Phone:</strong> +91 98765 43210</p> {/* Phone info */}
+            <p><strong>Address:</strong> Everleaf Tea Co., Assam, India</p> {/* Address info */}
           </div>
         </section>
       </div>
 
       {/* Footer */}
       <footer>
-        <p>© {new Date().getFullYear()} Everleaf Tea · Crafted with Care 🌱</p>
+        <p>© {new Date().getFullYear()} Everleaf Tea · Crafted with Care 🌱</p> {/* Copyright */}
       </footer>
     </>
   );
