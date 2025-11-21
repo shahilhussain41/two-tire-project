@@ -1,19 +1,20 @@
-apiVersion: apps/v1
-kind: Deployment
+# Kubernetes Deployment manifest for a simple static web server
+apiVersion: apps/v1                # API group and version for Deployment resources
+kind: Deployment                   # Resource type
 metadata:
-  name: static-web
+  name: static-web                 # Deployment name (unique in the namespace)
 spec:
-  replicas: 1
+  replicas: 1                      # Desired number of pod replicas
   selector:
     matchLabels:
-      app: static-web
+      app: static-web              # The selector used to find Pods managed by this Deployment
   template:
     metadata:
       labels:
-        app: static-web
+        app: static-web            # Labels applied to Pods; must match the selector above
     spec:
       containers:
-        - name: static-web
-          image: shahil411/static-web:latest
+        - name: static-web         # Container name inside the Pod
+          image: shahil411/static-web:latest  # Container image (use immutable tags/digests in production)
           ports:
-            - containerPort: 80
+            - containerPort: 80    # Port the container listens on (used by Services for routing)
